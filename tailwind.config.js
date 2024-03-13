@@ -12,6 +12,10 @@ module.exports = {
     // md: { max: '768px' },
     // sm: { max: '480px' },
     // },
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+      serif: ['Merriweather', 'serif'],
+    },
     extend: {
       screens: {
         '2xl': '1440px',
