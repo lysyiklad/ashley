@@ -20,6 +20,9 @@ module.exports = {
       screens: {
         '2xl': '1440px',
       },
+      // backgroundImage: {
+      //   frame2: "url('./img/Frame2.jpg')",
+      // },
     },
   },
   plugins: [],
