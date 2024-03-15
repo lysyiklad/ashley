@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,34 +7,306 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
+    <nav
+      x-cloak
+      x-data="accordion(6)"
+      class="fixed top-0 z-40 flex w-full flex-wrap items-center justify-between bg-white bg-opacity-90 px-4 py-5 tracking-wide shadow-md md:px-8 md:py-8 lg:px-14"
+    >
+      <!-- Left nav -->
+      <div class="flex items-center">
+        <a href="#" class="text-3xl tracking-wide"> Navbar </a>
+      </div>
+      <!-- End left nav -->
+
+      <!-- Right nav -->
+      <!-- Show menu sm,md -->
+      <!-- Toggle button -->
+      <div
+        @click="handleClick()"
+        x-data="{open : false}"
+        class="block cursor-pointer text-gray-600 lg:hidden"
+      >
+        <button @click="open = ! open" class="h-6 w-6 text-lg">
+          <svg
+            x-show="! open"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            :clas="{'transition-full each-in-out transform duration-500':! open}"
+          >
+            <rect width="48" height="48" fill="white" fill-opacity="0.01"></rect>
+            <path
+              d="M7.94977 11.9498H39.9498"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M7.94977 23.9498H39.9498"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+            <path
+              d="M7.94977 35.9498H39.9498"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+
+          <svg
+            x-show="open"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-x"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <!-- End toggle button -->
+
+      <!-- Toggle menu -->
+      <div
+        x-ref="tab"
+        :style="handleToggle()"
+        class="relative max-h-0 w-full overflow-hidden transition-all duration-700 lg:hidden"
+      >
+        <div class="hover:font-b my-3 flex flex-col space-y-2 text-lg text-gray-600">
+          <a href="#" class="hover:text-gray-900"><span>Link</span></a>
+          <hr />
+          <a href="#" class="hover:text-gray-900"><span>Link</span></a>
+          <hr />
+          <a href="#" class="hover:text-gray-900"><span>Link</span></a>
+        </div>
+        <div class="space-y-6 px-5 py-6">
+          <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700"> About </a>
+
+            <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
+              Contact
+            </a>
+          </div>
+        </div>
+        <div>
+          <a
+            href="#"
+            class="flex w-full items-center justify-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white text-white shadow-sm hover:bg-gray-700"
+          >
+            Sign up
+          </a>
+          <p class="mt-6 text-center text-base font-medium text-gray-500">
+            Existing customer?
+            <a href="#" class="text-gray-600 hover:text-gray-900"> Sign in </a>
+          </p>
+        </div>
+      </div>
+      <!-- End toggle menu -->
+      <!-- End show menu sm,md -->
+
+      <!-- Show Menu lg -->
+      <div class="hidden w-full lg:flex lg:w-auto lg:items-center">
+        <div
+          class="list-reset flex-1 items-center justify-center pt-6 text-lg text-gray-500 lg:flex lg:pt-0"
+        >
+          <div class="mr-3">
+            <a
+              href="#"
+              class="inline-block px-4 py-2 text-gray-600 no-underline hover:text-gray-900"
+            >
+              Link
+            </a>
+          </div>
+
+          <div class="mr-3">
+            <a
+              href="#"
+              class="inline-block px-4 py-2 text-gray-600 no-underline hover:text-gray-900"
+            >
+              Link
+            </a>
+          </div>
+
+          <!-- Dropdown 1 -->
+          <div
+            x-data="{ open: false }"
+            @mouseleave="open = false"
+            class="relative inline-block"
+            :class="{'text-gray-900': open, 'text-gray-600': !open }"
+          >
+            <!-- Dropdown Toggle Button -->
+            <button @mouseover="open = true" class="flex items-center rounded-md p-2">
+              <span class="mr-4">Hover Dropdown</span>
+              <span
+                :class="open = ! open ? '': '-rotate-180'"
+                class="transform transition-transform duration-500"
+              >
+                <svg
+                  class="h-4 w-4 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
+                </svg>
+              </span>
+            </button>
+            <!-- End Dropdown Toggle Button -->
+
+            <!-- Dropdown Menu -->
+            <div
+              x-show="open"
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 transform scale-90"
+              x-transition:enter-end="opacity-100 transform scale-100"
+              x-transition:leave="transition ease-in duration-300"
+              x-transition:leave-start="opacity-100 transform scale-100"
+              x-transition:leave-end="opacity-0 transform scale-90"
+              class="absolute right-0 min-w-max rounded-lg bg-white py-1 text-gray-500 shadow-xl"
+            >
+              <a href="#" class="block px-4 py-1 hover:bg-gray-100 hover:text-gray-900"
+                >Lorem, ipsum.</a
+              >
+              <a href="#" class="block px-4 py-1 hover:bg-gray-100 hover:text-gray-900"
+                >Lorem, ipsum dolor.</a
+              >
+              <a href="#" class="block px-4 py-1 hover:bg-gray-100 hover:text-gray-900"
+                >Lorem ipsum dolor sit amet.</a
+              >
+            </div>
+            <!-- End Dropdown Menu -->
+          </div>
+          <!-- End Dropdown 1 -->
+        </div>
+      </div>
+      <div class="hidden w-full lg:flex lg:w-auto lg:items-center">
+        <div
+          class="list-reset flex-1 items-center justify-center pt-6 text-lg text-gray-500 lg:flex lg:pt-0"
+        >
+          <a
+            href="#"
+            class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+          >
+            Sign in
+          </a>
+          <a
+            href="#"
+            class="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-gray-700"
+          >
+            Sign up
+          </a>
+        </div>
+      </div>
+      <!-- End show Menu lg -->
+      <!-- End right nav -->
+    </nav>
+    <script>
+      // navbar
+      document.addEventListener("alpine:init", () => {
+        Alpine.store("accordion", {
+          tab: 0,
+        });
+
+        Alpine.data("accordion", (idx) => ({
+          init() {
+            this.idx = idx;
+          },
+          idx: -1,
+          handleClick() {
+            this.$store.accordion.tab = this.$store.accordion.tab === this.idx ? 0 : this.idx;
+          },
+          handleRotate() {
+            return this.$store.accordion.tab === this.idx ? "-rotate-180" : "";
+          },
+          handleToggle() {
+            return this.$store.accordion.tab === this.idx
+              ? `max-height: ${this.$refs.tab.scrollHeight}px`
+              : "";
+          },
+        }));
+      });
+      //  end navbar
+    </script>
+    <div x-data="{ open: false }" class="bg-transparent">
+      <div
+        class="container fixed left-0 right-0 top-0 z-10 mx-auto flex items-center justify-between p-4"
+      >
+        <img src="./img/Logo.svg" width="100px" height="40px" alt="logo" />
+        <button @click="open = !open" class="text-black">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        <!-- <div class="hidden lg:flex">
+          <ul class="space-x-4 lg:flex">
+            <li><a class="text-blue-500" href="#">Home</a></li>
+            <li><a class="text-blue-500" href="#">About</a></li>
+            <li><a class="text-blue-500" href="#">Services</a></li>
+            <li><a class="text-blue-500" href="#">Contact</a></li>
+          </ul>
+        </div> -->
+      </div>
+      <div x-show="open" class="container mx-auto">
+        <ul class="mt-24 bg-yellow-200 p-4">
+          <li><a class="text-blue-500" href="#">Home</a></li>
+          <li><a class="text-blue-500" href="#">About</a></li>
+          <li><a class="text-blue-500" href="#">Services</a></li>
+          <li><a class="text-blue-500" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="flex flex-col">
-      <header class="h-[88px] bg-transparent fixed top-0 left-0 right-0 z-10">
+      <!-- <header class="fixed left-0 right-0 top-0 z-10 h-[88px] bg-transparent">
         <div class="container mx-auto">
           <div class="p-6">
             <img src="./img/Logo.svg" width="100px" height="40px" alt="logo" />
           </div>
         </div>
-      </header>
+      </header> -->
       <main class="container mx-auto h-full grow">
         <h1 class="hidden">Ashley&CO</h1>
         <!-- Section 1 -->
         <section class="bg-yellow-200">
           <div
-            class="grid grid-cols-1 sm:grid-cols-[1fr_250px] xl:grid-cols-[1fr_380px] sm:grid-rows-[1fr_1fr_auto]"
+            class="grid grid-cols-1 sm:grid-cols-[1fr_250px] sm:grid-rows-[1fr_1fr_auto] xl:grid-cols-[1fr_380px]"
           >
-            <div class="order-first sm:row-span-2 h-full w-full">
-              <img class="object-cover h-full w-full" src="./img/img1.jpg" alt="" />
+            <div class="order-first h-full w-full sm:row-span-2">
+              <img class="h-full w-full object-cover" src="./img/img1.jpg" alt="" />
             </div>
 
             <div class="order-2 px-10 pb-10 sm:p-10 xl:p-12">
-              <p class="text-[14px] mt-[88px]">
+              <p class="mt-[88px] text-[14px]">
                 Let Power House Tui & Kahili uplift every space and surface that surrounds you, with
                 each mist-filled pump.
               </p>
               <p>SHOP NEW PRODUCT</p>
             </div>
             <div
-              class="order-3 bg-black text-white p-10 w-full sm:w-[322px] h-full xl:w-[376px] xl:h-[254px] sm:relative sm:-left-32 lg:top-16 xl:top-24 xl:-left-10 2xl:top-40 2xl:-left-10"
+              class="order-3 h-full w-full bg-black p-10 text-white sm:relative sm:-left-32 sm:w-[322px] lg:top-16 xl:-left-10 xl:top-24 xl:h-[254px] xl:w-[376px] 2xl:-left-10 2xl:top-40"
             >
               <p>
                 This website uses cookies to give you the best shopping experience. By continuing to
@@ -43,7 +315,7 @@
               </p>
               <p>Learn More</p>
             </div>
-            <div class="order-1 sm:order-4 sm:col-span-2 p-10 text-[25px] leading-8">
+            <div class="order-1 p-10 text-[25px] leading-8 sm:order-4 sm:col-span-2">
               Take your home scent to another realm
             </div>
           </div>
@@ -53,7 +325,7 @@
         <!-- Section 2 -->
         <section class="bg-[#9C8554] text-[#B2B2B2]">
           <div class="flex flex-col lg:flex-row">
-            <div class="basis-1/4 flex flex-col justify-between">
+            <div class="flex basis-1/4 flex-col justify-between">
               <p class="p-5 lg:p-10">HAND POURED CANDLES</p>
               <div class="p-5 lg:p-10">
                 <p>
@@ -64,8 +336,8 @@
               </div>
             </div>
             <div class="h-full basis-3/4">
-              <img class="w-full h-full object-cover" src="./img/img2.jpg" alt="" />
-              <p class="text-[25px] p-5 lg:p-10 text-right">Share the light, everyday</p>
+              <img class="h-full w-full object-cover" src="./img/img2.jpg" alt="" />
+              <p class="p-5 text-right text-[25px] lg:p-10">Share the light, everyday</p>
             </div>
           </div>
         </section>
@@ -75,14 +347,14 @@
         <section class="text-[#262626]">
           <div class="flex flex-col sm:flex-row">
             <div
-              style="background-image: url('./img/Frame1.jpg')"
-              class="sm:basis-1/2 p-10 tetxt-[12px] bg-cover bg-center uppercase h-[400px] sm:h-[450px] lg:h-[600px] xl:h-[800px] flex flex-col justify-end"
+              style="background-image: url(&quot;./img/Frame1.jpg&quot;)"
+              class="tetxt-[12px] flex h-[400px] flex-col justify-end bg-cover bg-center p-10 uppercase sm:h-[450px] sm:basis-1/2 lg:h-[600px] xl:h-[800px]"
             >
               Dialed to 70% alcohol
             </div>
             <div
-              style="background-image: url('./img/Frame2.jpg')"
-              class="sm:basis-1/2 p-10 tetxt-[12px] bg-cover bg-center uppercase h-[400px] sm:h-[450px] lg:h-[600px] xl:h-[800px] flex flex-col justify-end"
+              style="background-image: url(&quot;./img/Frame2.jpg&quot;)"
+              class="tetxt-[12px] flex h-[400px] flex-col justify-end bg-cover bg-center p-10 uppercase sm:h-[450px] sm:basis-1/2 lg:h-[600px] xl:h-[800px]"
             >
               REFILL WITH TOPUP
             </div>
@@ -93,7 +365,7 @@
         <!-- Section 5 -->
         <section class="bg-[#A26779] text-[#B2B2B2]">
           <div class="flex flex-col lg:flex-row">
-            <div class="basis-1/4 flex flex-col justify-between">
+            <div class="flex basis-1/4 flex-col justify-between">
               <p class="p-5 lg:p-10">MODERN REED DIFFUSER</p>
               <div class="p-5 lg:p-10">
                 <p>
@@ -104,8 +376,8 @@
               </div>
             </div>
             <div class="h-full basis-3/4">
-              <img class="w-full h-full object-cover" src="./img/img3.jpg" alt="" />
-              <p class="text-[25px] p-5 lg:p-10 text-right">Home Perfume</p>
+              <img class="h-full w-full object-cover" src="./img/img3.jpg" alt="" />
+              <p class="p-5 text-right text-[25px] lg:p-10">Home Perfume</p>
             </div>
           </div>
         </section>
@@ -113,12 +385,12 @@
 
         <!-- Section 6 -->
         <section
-          style="background-image: url('./img/bag-section-6.jpg')"
-          class="bg-cover bg-center bg-no-repeat h-full"
+          style="background-image: url(&quot;./img/bag-section-6.jpg&quot;)"
+          class="h-full bg-cover bg-center bg-no-repeat"
         >
-          <div class="w-72 pt-32 ml-5 sm:ml-40 pb-[450px]">
+          <div class="ml-5 w-72 pb-[450px] pt-32 sm:ml-40">
             <p class="text-[15px]">ROOM MIST</p>
-            <h2 class="text-[25px] pt-3">Hip-hop, house swap</h2>
+            <h2 class="pt-3 text-[25px]">Hip-hop, house swap</h2>
             <p class="pt-10">
               Freshen tired surrounds with a boost of fresh scent with Power House Nine to Five.
               Blond Tobacco, cinders of burnt Birch laced with Geranium, Violet Leaves and the
@@ -132,7 +404,7 @@
         <!-- Section 7 -->
         <section class="bg-[#504B4D] text-[#B2B2B2]">
           <div class="flex flex-col lg:flex-row">
-            <div class="basis-1/4 flex flex-col justify-between">
+            <div class="flex basis-1/4 flex-col justify-between">
               <p class="p-5 lg:p-10">Hand Wash</p>
               <div class="p-5 lg:p-10">
                 <p>
@@ -143,8 +415,8 @@
               </div>
             </div>
             <div class="h-full basis-3/4">
-              <img class="w-full h-full object-cover" src="./img/img4.jpg" alt="" />
-              <p class="text-[25px] p-5 lg:p-10 text-right">Your habitual helper</p>
+              <img class="h-full w-full object-cover" src="./img/img4.jpg" alt="" />
+              <p class="p-5 text-right text-[25px] lg:p-10">Your habitual helper</p>
             </div>
           </div>
         </section>
@@ -153,7 +425,7 @@
         <!-- Section 8 -->
         <section class="bg-[#B04836] text-[#B2B2B2]">
           <div class="flex flex-col lg:flex-row">
-            <div class="basis-1/4 flex flex-col justify-between">
+            <div class="flex basis-1/4 flex-col justify-between">
               <p class="p-5 lg:p-10">Industry</p>
               <div class="p-5 lg:p-10">
                 <p>
@@ -164,15 +436,15 @@
               </div>
             </div>
             <div class="h-full basis-3/4">
-              <img class="w-full h-full object-cover" src="./img/img5.jpg" alt="" />
-              <p class="text-[25px] p-5 lg:p-10 text-right">Hold Me</p>
+              <img class="h-full w-full object-cover" src="./img/img5.jpg" alt="" />
+              <p class="p-5 text-right text-[25px] lg:p-10">Hold Me</p>
             </div>
           </div>
         </section>
         <!-- Section 8 -->
       </main>
     </div>
-
     <script src="./js/script.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
   </body>
 </html>

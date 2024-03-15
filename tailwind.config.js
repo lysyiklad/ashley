@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./**/*.{html,js}'],
+  content: ["./index.html"],
   theme: {
     // screens: {
     //   sm: '480px',
@@ -13,12 +13,12 @@ module.exports = {
     // sm: { max: '480px' },
     // },
     fontFamily: {
-      sans: ['Roboto', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      sans: ["Roboto", "sans-serif"],
+      serif: ["Merriweather", "serif"],
     },
     extend: {
       screens: {
-        '2xl': '1440px',
+        "2xl": "1440px",
       },
       // backgroundImage: {
       //   frame2: "url('./img/Frame2.jpg')",
